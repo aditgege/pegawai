@@ -11,9 +11,6 @@
 export default {
   name: 'Notification',
   props: ['message',],
-  // transition:{
-  //       name:'pusherror',
-  //       mode:'out-in'
-  //   },
+  
 }
 </script>

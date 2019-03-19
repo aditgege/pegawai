@@ -9,9 +9,9 @@
         </div>
        <div class="row">
             <div class="col-12">
-            <transition name="pusherror" v-if="errors.length>1" >
+            <div name="pusherror" v-if="errors.length>1" >
                 <Notification :message="errors" />                
-            </transition>
+            </div>
             <div class="card mt-4 align-middle">
                 <div class="card-body">
                     <form @submit.prevent="login">
@@ -43,6 +43,7 @@
 <script>
 import Notification from '~/components/Notification.vue'
 export default {
+    transition: 'page',
     layout:'blank',
     components: {
         Notification
@@ -70,7 +71,6 @@ export default {
                 this.$router.push(this.$route.query.redirect ? this.$route.query.redirect : '/');
             } catch(e){
                 return e.response.errors
-                // error = true
             }
         }
     }

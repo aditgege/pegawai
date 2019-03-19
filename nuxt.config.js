@@ -23,7 +23,7 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { 
-    color: '#f1c40f',
+    color: '#2ecc71',
     height: '5px',
     // duration:500,
    },
@@ -37,6 +37,9 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '~/assets/main.css',
+    // '~bootstrap/scss/bootstrap.scss'
+
   ],
 
   /*
@@ -46,7 +49,8 @@ module.exports = {
     './plugins/mixins/validation',
     './plugins/mixins/user',
     './plugins/axios',
-    './plugins/element-ui'
+    './plugins/element-ui',
+    // './plugins/sidebar'
   ],
   /*
   ** Nuxt.js modules

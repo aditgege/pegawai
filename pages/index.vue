@@ -3,7 +3,7 @@
     <b-row align-h="center">
       <div class="mt-5">
           <center><b>TANGGAL PENGERJAAN</b></center>
-        <el-date-picker align="center" type="date" placeholder="Pilih tanggal" v-model="form.tglpengerjaan" format="yyyy-MM-dd" v-on:change="getPpic" value-format="yyyy-MM-dd">
+        <el-date-picker align="center" type="date" placeholder="Pilih tanggal" v-model="form.tglpengerjaan" format="d-MMM-yyyy" v-on:change="getPpic" value-format="yyyy-MM-dd" >
         </el-date-picker>
       </div>
     </b-row>
@@ -48,15 +48,16 @@
 import Notification from '~/components/Notification.vue'
 
 export default {
+  transition:'page',
+  middleware:'auth',
   components:{
     Notification
   },
-  middleware:'auth',
   data(){
     return  {
       form:{
         idpegawai:this.$auth.user.idpegawai,
-        tglpengerjaan:'',
+        tglpengerjaan: new Date().toISOString().slice(0,10),
       },
       fields:[
         {
@@ -113,9 +114,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~bootstrap/scss/bootstrap.scss";
+    // '~bootstrap/scss/bootstrap.scss'
+
 .body{
   background-color: #DFE1F3;
+  background-image:url("../assets/undraw_Working_32n9.svg")
 }
   .card{
     border:none;
