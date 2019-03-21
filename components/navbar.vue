@@ -10,11 +10,8 @@
       <div class="btn-close" ><i class="el-icon-close"  @click="showSidebar = !showSidebar"></i></div>
         <div class="col-12 menu">
           <template v-if="authenticated">
-            <li class="nav-item">
-              <nuxt-link class="nav-link" to="/"><i class="el-icon-bell"></i>Kerjaan</nuxt-link>
-            </li>
-            <li class="nav-item">
-              <nuxt-link class="nav-link" to="/profile"><i class="el-icon-mobile-phone"></i>profile</nuxt-link>
+            <li class="nav-item" v-for="menu in menus" :key="menu.index" @click="showSidebar = !showSidebar">
+              <nuxt-link class="nav-link" :to="menu.link"><i :class="menu.icon"></i>{{ menu.nmmenu}}</nuxt-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click.prevent="signOut"><i class="el-icon-circle-close-outline"></i>Logout</a>
@@ -24,9 +21,9 @@
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/login">Login</nuxt-link>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <nuxt-link class="nav-link" to="/register">Register</nuxt-link>
-            </li>
+            </li> -->
           </template>
         </div>
     </div>
@@ -38,7 +35,11 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      showSidebar:false
+      showSidebar:false,
+      menus:[
+        { nmmenu:'Kerjaan', link:'/' , icon:'el-icon-bell'},
+        { nmmenu:'Profile', link:'/profile' ,icon:'el-icon-mobile-phone'},
+      ]
     }
   },
     methods: {

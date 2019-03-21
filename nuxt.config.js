@@ -50,7 +50,6 @@ module.exports = {
     './plugins/mixins/user',
     './plugins/axios',
     './plugins/element-ui',
-    // './plugins/sidebar'
   ],
   /*
   ** Nuxt.js modules
@@ -60,8 +59,10 @@ module.exports = {
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
-    '@nuxtjs/pwa',
     '@nuxtjs/auth',
+    '@nuxtjs/moment',
+    '@nuxtjs/pwa',
+
 
   ],
   /*

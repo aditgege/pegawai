@@ -3,8 +3,10 @@
     <b-row align-h="center">
       <div class="mt-5">
           <center><b>TANGGAL PENGERJAAN</b></center>
+        <button class="btn btn-small" @click="prevDate"><i class="el-icon-d-arrow-left"></i></button>
         <el-date-picker align="center" type="date" placeholder="Pilih tanggal" v-model="form.tglpengerjaan" format="d-MMM-yyyy" v-on:change="getPpic" value-format="yyyy-MM-dd" >
         </el-date-picker>
+        <button class="btn btn-small" @click="nextDate"><i class="el-icon-d-arrow-right"></i></button>
       </div>
     </b-row>
     <div class=" mt-4">
@@ -57,7 +59,7 @@ export default {
     return  {
       form:{
         idpegawai:this.$auth.user.idpegawai,
-        tglpengerjaan: new Date().toISOString().slice(0,10),
+        tglpengerjaan: '',
       },
       fields:[
         {
@@ -89,9 +91,26 @@ export default {
     }
   },
   mounted() {
+    this.hariini(),
     this.getPpic()
   },
   methods: {
+   hariini(){
+    var date = new Date()
+    this.form.tglpengerjaan = date;
+   },
+   nextDate(){
+      var date = new Date(this.form.tglpengerjaan.valueOf());
+      date.setDate(date.getDate() + 1);
+      this.form.tglpengerjaan = date;
+      this.getPpic()
+   },
+   prevDate(){
+      var date = new Date(this.form.tglpengerjaan.valueOf());
+      date.setDate(date.getDate() - 1);
+      this.form.tglpengerjaan = date;
+      this.getPpic()
+   },
    getPpic() {
     this.$axios.post('datappic', this.form)
       .then((Response) => {
