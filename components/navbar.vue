@@ -38,6 +38,7 @@ export default {
       showSidebar:false,
       menus:[
         { nmmenu:'Kerjaan', link:'/' , icon:'el-icon-bell'},
+        { nmmenu:'Pembelian', link:'/pembelian' , icon:'el-icon-bell'},
         { nmmenu:'Profile', link:'/profile' ,icon:'el-icon-mobile-phone'},
       ]
     }

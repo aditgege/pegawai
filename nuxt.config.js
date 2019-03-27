@@ -70,7 +70,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://test.produksi-iwzl-api.com/v1'
+    baseURL: 'https://apiproduksi.masikids.com/v1'
 
   },
   auth: {
