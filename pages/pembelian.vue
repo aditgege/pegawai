@@ -1,23 +1,15 @@
 <template>
   <section class="container-fluid">
-    <b-row align-h="center">
-      <div class="mt-5">
-          <center><b>PERMINTAAN PEMBELIAN BARANG</b></center>
-          <div class="d-flex">
-              <div>
-                  <VueHotelDatepicker
-                    :placeholder="'Masukan Tanggal'"
-                    :fromText="'dari'"
-                    :toText="'sampai'"
-                    :format="'DD/MM/YYYY'"
-                    :weekList="['sen','sel','rab','kam', 'jum' , 'sab' , 'min']"
-                />
-                    <div class="mt-2">
-                        <input  type="text" class="form-control"  placeholder="cari barang">
-                    </div>
-              </div>
-            <button class="btn btn-success" type="submit">CARI</button>
+     <b-row align-h="center">
+      <div class=" col-12 mt-5">
+          <center><b>TANGGAL PENGERJAAN</b></center>
+      <div class="d-flex">
+          <div class="">
+            <el-date-picker align="center" type="date" placeholder="Pilih tanggal dari" v-model="form.tglpengerjaan" format="d-MMM-yyyy" v-on:change="getPpic" value-format="yyyy-MM-dd" ></el-date-picker>
+            <el-date-picker class="mt-2" align="center" type="date" placeholder="Pilih tanggal ke" v-model="form.tglpengerjaan" format="d-MMM-yyyy" v-on:change="getPpic" value-format="yyyy-MM-dd" ></el-date-picker>
           </div>
+          <div><a href="#" class="btn btn-success btn-cari">Cari</a></div>
+      </div>
       </div>
     </b-row>
     <div class=" mt-4">
@@ -55,14 +47,12 @@
 
 <script>
 import Notification from '~/components/Notification.vue'
-import VueHotelDatepicker from '@northwalker/vue-hotel-datepicker'
 
 export default {
   transition:'page',
   middleware:'auth',
   components:{
     Notification,
-    VueHotelDatepicker
   },
   data(){
     return  {
@@ -185,5 +175,11 @@ export default {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  .btn-cari{
+    text-align: center;
+    padding: 30px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    font-weight: bold;
   }
 </style>

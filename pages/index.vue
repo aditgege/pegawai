@@ -13,24 +13,24 @@
       <div class="row">
         <div class="col-3">
           <b-card header-bg-variant="primary" text-variant="white" header="Plan" class="text-center">
-            <b-card-text>1</b-card-text>
+            <b-card-text >{{plan}}</b-card-text>
           </b-card>
         </div>
 
         <div class="col-3">
           <b-card header-bg-variant="warning" text-variant="white" header="Sedang" class="text-center">
-            <b-card-text>2</b-card-text>
+            <b-card-text>{{sedang}}</b-card-text>
           </b-card>
         </div>
 
         <div class="col-3">
           <b-card header-bg-variant="success" text-variant="white" header="Selesai" class="text-center">
-            <b-card-text>2</b-card-text>
+            <b-card-text>{{selesai}}</b-card-text>
           </b-card>
         </div>
         <div class="col-3">
           <b-card header-bg-variant="danger" text-variant="white" header="Sisa" class="text-center">
-            <b-card-text>2</b-card-text>
+            <b-card-text>{{sisa}}</b-card-text>
           </b-card>
         </div>
       </div>
@@ -88,6 +88,10 @@ export default {
         }
       ],
       items: [],
+      plan:'',
+      sedang:'',
+      selesai:'',
+      sisa:''
     }
   },
   mounted() {
@@ -116,6 +120,10 @@ export default {
       .then((Response) => {
         if(Response.data.data.length>0){
           this.items = Response.data.data;
+          this.plan  = Response.data.plan 
+          this.sedang  = Response.data.sedang
+          this.selesai  = Response.data.selesai 
+          this.sisa  = Response.data.sisa
         }else{
           return "berhasil tapi data ga ada"
         }

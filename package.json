@@ -11,7 +11,6 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@northwalker/vue-hotel-datepicker": "^2.0.1",
     "@nuxtjs/auth": "^4.5.3",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/moment": "^1.2.0",
