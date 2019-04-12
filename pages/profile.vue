@@ -5,8 +5,7 @@
                <div class="wrapper-profile">
                     <div class="card mt-2 align-middle card-profile">
                         <div class="card-body">
-                           <div class="d-flex">
-                                
+                           <div class="d-flex">                                
                             <Upload />    
                                 <div class="wrapper-identitas ml-3 d-flex w-75 ">
                                     <div class="">

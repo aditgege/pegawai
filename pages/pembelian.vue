@@ -2,34 +2,52 @@
   <section class="container-fluid">
      <b-row align-h="center">
       <div class=" col-12 mt-5">
-          <center><b>TANGGAL PENGERJAAN</b></center>
-      <div class="d-flex">
-          <div class="">
-            <el-date-picker align="center" type="date" placeholder="Pilih tanggal dari" v-model="form.tglpengerjaan" format="d-MMM-yyyy" v-on:change="getPpic" value-format="yyyy-MM-dd" ></el-date-picker>
-            <el-date-picker class="mt-2" align="center" type="date" placeholder="Pilih tanggal ke" v-model="form.tglpengerjaan" format="d-MMM-yyyy" v-on:change="getPpic" value-format="yyyy-MM-dd" ></el-date-picker>
+          <center><b>TANGGAL PEMBELIAN</b></center>
+      <div class="">
+          <div class="center" align="center">
+            <el-date-picker align="center" type="date" placeholder="Pilih tanggal dari" v-model="form.daritgl" format="d-MMM-yyyy" v-on:change="getDataPem" value-format="yyyy-MM-dd" ></el-date-picker>
+            <el-date-picker class="mt-2" align="center" type="date" placeholder="Pilih tanggal ke" v-model="form.ketgl" format="d-MMM-yyyy" v-on:change="getDataPem" value-format="yyyy-MM-dd" ></el-date-picker>
           </div>
-          <div><a href="#" class="btn btn-success btn-cari">Cari</a></div>
+          <!-- <div><a href="#" @click="getDataPem" class="btn btn-success btn-cari">Cari</a></div> -->
       </div>
       </div>
     </b-row>
     <div class=" mt-4">
-      <div class="row">
-
+       <div class="row" v-if="errors.length>1">
         <div class="col-4">
           <b-card header-bg-variant="warning" text-variant="white" header="Permintaan" class="text-center">
-            <b-card-text>2</b-card-text>
+            <b-card-text>0</b-card-text>
           </b-card>
         </div>
 
         <div class="col-4">
           <b-card header-bg-variant="success" text-variant="white" header="Sudah dibeli" class="text-center">
-            <b-card-text>2</b-card-text>
+            <b-card-text>0</b-card-text>
           </b-card>
         </div>
 
         <div class="col-4">
           <b-card header-bg-variant="primary" text-variant="white" header="Sisa" class="text-center">
-            <b-card-text>1</b-card-text>
+            <b-card-text>0</b-card-text>
+          </b-card>
+        </div>
+      </div>
+      <div class="row" v-else>
+        <div class="col-4">
+          <b-card header-bg-variant="warning" text-variant="white" header="Permintaan" class="text-center">
+            <b-card-text>{{ permintaan }}</b-card-text>
+          </b-card>
+        </div>
+
+        <div class="col-4">
+          <b-card header-bg-variant="success" text-variant="white" header="Sudah dibeli" class="text-center">
+            <b-card-text>{{dibeli}}</b-card-text>
+          </b-card>
+        </div>
+
+        <div class="col-4">
+          <b-card header-bg-variant="primary" text-variant="white" header="Sisa" class="text-center">
+            <b-card-text>{{ sisa}}</b-card-text>
           </b-card>
         </div>
       </div>
@@ -38,7 +56,19 @@
        <div class="col-12 mt-3">
           <transition name="pusherror" >
             <Notification :message="errors" v-if="errors.length>1"/>                
-            <b-table ref="table" v-else class="text-center"  hover :items="items" :fields="fields" responsive/>
+            <b-table ref="table" v-else class="text-center"  hover :items="items" :fields="fields" responsive>
+              <template slot="NO" slot-scope="data">
+              {{ data.index + 1 }}
+          </template>
+            <template slot="nmstsetuju" slot-scope="row" >
+              <b-form-group v-if="row.item.idstsetuju == 1">
+                <input type="checkbox" v-model="row.item.nmstsetuju" @change="updateData" />
+              </b-form-group>
+              <b-form-group v-else>
+                <input type="checkbox" @change="updateData"/>
+              </b-form-group>
+            </template>
+            </b-table>
           </transition>
       </div>
     </b-row>
@@ -58,63 +88,54 @@ export default {
     return  {
       form:{
         idpegawai:this.$auth.user.idpegawai,
-        tglpengerjaan: '',
+        daritgl: '',
+        ketgl:''
       },
       fields:[
-        {
-          label: 'No',
-          key:'noorder'
-        },
+        'NO',
         {
           label:'BARANG',
-          key:'kdproduk'
+          key:'nmjnsbahan'
         },
         {
           label:'SATUAN',
-          key:'nmproduk'
+          key:'nmsatuan'
         },
         {
           label:'QTY',
-          key:'warna'
+          key:'qty'
         },
         {
           label:'REKOMENDASI SUPPLIER',
-          key:'size'
+          key:'nmsupplier'
         },
         {
           label:'SUDAH DIBELI',
-          key:'nmstproduksi'
+          key:'nmstsetuju',
+          nmstsetuju:true
+
         }
       ],
       items: [],
+      permintaan:'',
+      dibeli:'',
+      sisa:''
     }
   },
   mounted() {
-    this.hariini(),
-    this.getPpic()
+    this.getDataPem()
   },
   methods: {
-   hariini(){
-    var date = new Date()
-    this.form.tglpengerjaan = date;
-   },
-   nextDate(){
-      var date = new Date(this.form.tglpengerjaan.valueOf());
-      date.setDate(date.getDate() + 1);
-      this.form.tglpengerjaan = date;
-      this.getPpic()
-   },
-   prevDate(){
-      var date = new Date(this.form.tglpengerjaan.valueOf());
-      date.setDate(date.getDate() - 1);
-      this.form.tglpengerjaan = date;
-      this.getPpic()
-   },
-   getPpic() {
-    this.$axios.post('datappic', this.form)
+   
+   getDataPem() {
+    this.$axios.post('datapembelian', this.form)
       .then((Response) => {
         if(Response.data.data.length>0){
           this.items = Response.data.data;
+          this.permintaan = Response.data.permintaan;
+          this.dibeli = Response.data.dibeli;
+          this.sisa = Response.data.sisa;
+          // console.log(items.)
         }else{
           return "berhasil tapi data ga ada"
         }
@@ -124,6 +145,9 @@ export default {
         return error.response.errors
       })
   },
+  updateData(){
+    this.$axios.post('')
+  }
   
 
 }

@@ -3,6 +3,7 @@
     <b-navbar type="dark" variant="dark" toggleable>
       <div class="container">
         <b-navbar-toggle target="nav_dropdown_collapse"  @click="showSidebar = !showSidebar"></b-navbar-toggle>
+        <div class="mr-auto ml-3"> <p style="color:white; margin:0px; font-weight:bold">{{ nama }}</p></div>
       </div>
     </b-navbar>
     <div class="black-box" :class="{ active:showSidebar}" @click="showSidebar = false" ></div>
@@ -35,6 +36,7 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
+      nama:this.$auth.user.nmpegawai,
       showSidebar:false,
       menus:[
         { nmmenu:'Kerjaan', link:'/' , icon:'el-icon-bell'},

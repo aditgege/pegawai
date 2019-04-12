@@ -10,7 +10,31 @@
       </div>
     </b-row>
     <div class=" mt-4">
-      <div class="row">
+      <div class="row" v-if="errors.length>1">
+        <div class="col-3" >
+          <b-card header-bg-variant="primary" text-variant="white" header="Plan" class="text-center">
+            <b-card-text >0</b-card-text>
+          </b-card>
+        </div>
+
+        <div class="col-3">
+          <b-card header-bg-variant="warning" text-variant="white" header="Sedang" class="text-center">
+            <b-card-text>0</b-card-text>
+          </b-card>
+        </div>
+
+        <div class="col-3">
+          <b-card header-bg-variant="success" text-variant="white" header="Selesai" class="text-center">
+            <b-card-text>0</b-card-text>
+          </b-card>
+        </div>
+        <div class="col-3">
+          <b-card header-bg-variant="danger" text-variant="white" header="Sisa" class="text-center">
+            <b-card-text>0</b-card-text>
+          </b-card>
+        </div>
+      </div>
+      <div class="row" v-else>
         <div class="col-3">
           <b-card header-bg-variant="primary" text-variant="white" header="Plan" class="text-center">
             <b-card-text >{{plan}}</b-card-text>
@@ -130,6 +154,10 @@ export default {
 
       })
       .catch((error) => {
+        // this.plan  = error.response.plan 
+        // this.sedang  = error.response.sedang
+        // this.selesai  = error.response.selesai 
+        // this.sisa  = error.response.sisa
         return error.response.errors
       })
   },

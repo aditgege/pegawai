@@ -2,7 +2,7 @@
 <template>
     <el-upload
         class="avatar-uploader"
-        action="http://test.produksi-iwzl-api.com/v1/update"
+        action="https://apiproduksi.masikids.com/v1/update"
         :http-request="uploadImg"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
@@ -24,7 +24,7 @@ import { Message } from 'element-ui';
     },
     computed: {
       fotoPegawai : function () {
-        return "http://test.produksi-iwzl-api.com/images/gambarpegawai/" + this.gambarpegawai
+        return "https://apiproduksi.masikids.com/images/gambarpegawai/" + this.gambarpegawai
       }
     },
     methods: {
@@ -68,7 +68,6 @@ import { Message } from 'element-ui';
           })
           .catch(() => {
             f.onError()
-
         })
       },
 
