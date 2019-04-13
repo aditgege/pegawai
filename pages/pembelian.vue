@@ -60,12 +60,9 @@
               <template slot="NO" slot-scope="data">
               {{ data.index + 1 }}
           </template>
-            <template slot="nmstsetuju" slot-scope="row" >
-              <b-form-group v-if="row.item.idstsetuju == 1">
-                <input type="checkbox" v-model="row.item.nmstsetuju" @change="updateData" />
-              </b-form-group>
-              <b-form-group v-else>
-                <input type="checkbox" @change="updateData"/>
+            <template slot="stbeli" slot-scope="row">
+              <b-form-group >
+                <b-form-checkbox  v-model="row.item.stbeli" @change="row.item.stbeli = !row.item.stbeli ,updateData" :value="row.item.stbeli" >{{row.item.stbeli}}</b-form-checkbox>
               </b-form-group>
             </template>
             </b-table>
@@ -111,15 +108,16 @@ export default {
         },
         {
           label:'SUDAH DIBELI',
-          key:'nmstsetuju',
-          nmstsetuju:true
+          key:'stbeli',
+          // stbeli:true,
 
         }
       ],
       items: [],
       permintaan:'',
       dibeli:'',
-      sisa:''
+      sisa:'',
+      stbeli:''
     }
   },
   mounted() {
@@ -134,8 +132,9 @@ export default {
           this.items = Response.data.data;
           this.permintaan = Response.data.permintaan;
           this.dibeli = Response.data.dibeli;
-          this.sisa = Response.data.sisa;
-          // console.log(items.)
+          this.sisa = Response.data.sisa
+          console.log(row.item.stbeli)
+          // console.log(this..stbeli)
         }else{
           return "berhasil tapi data ga ada"
         }
@@ -146,7 +145,14 @@ export default {
       })
   },
   updateData(){
-    this.$axios.post('')
+    // this.$axios.post('updateBeli' , row.items.stbeli)
+    // .then((Response) => {
+    //   this.row.items.stbeli;
+    // })
+    // .catch((error) => {
+    //   return error.response.errors
+    // })
+    // console.log(this.stbeli)
   }
   
 

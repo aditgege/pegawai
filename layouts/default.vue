@@ -12,12 +12,8 @@ export default {
   components: {
     Navbar
   }
-};
+}
 </script>
 
-<style>
-  body{
-      /* background-color:#DFE1F3!important; */
-  }
-</style>
+
 
