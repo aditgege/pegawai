@@ -62,8 +62,12 @@
           </template>
             <template slot="stbeli" slot-scope="row">
               <b-form-group >
-                <b-form-checkbox  v-model="row.item.stbeli" @change="row.item.stbeli = !row.item.stbeli ,updateData" :value="row.item.stbeli" >{{row.item.stbeli}}</b-form-checkbox>
+                <b-form-checkbox  v-if="row.item.stbeli == 1" v-model="row.item.stbeli" @change="selectRow(row.item)" :value="row.item.stbeli" ></b-form-checkbox>
+                <b-form-checkbox  v-else  @change="selectRow(row.item)" :value="row.item.stbeli" ></b-form-checkbox>              
               </b-form-group>
+               <!-- <b-form-group  v-else>
+                <b-form-checkbox  v-model="row.item.stbeli" @change="row.item.stbeli = !row.item.stbeli ,updateData" :value="row.item.stbeli" :checked="false" >{{row.item.stbeli}}</b-form-checkbox>
+              </b-form-group> -->
             </template>
             </b-table>
           </transition>
@@ -109,7 +113,6 @@ export default {
         {
           label:'SUDAH DIBELI',
           key:'stbeli',
-          // stbeli:true,
 
         }
       ],
@@ -117,7 +120,8 @@ export default {
       permintaan:'',
       dibeli:'',
       sisa:'',
-      stbeli:''
+      selected:''
+      
     }
   },
   mounted() {
@@ -153,9 +157,24 @@ export default {
     //   return error.response.errors
     // })
     // console.log(this.stbeli)
-  }
-  
+  },
+  selectRow(item) {
+      if (item.stbeli == 1) {
+        item.stbeli = true;
+        this.selected = item.stbeli
+      } else {
+        item.stbeli = false
+        this.selected = item.stbeli
 
+      }
+       this.$axios.post('updateBeli', this.selected)
+          .then((Response) => {
+            this.selected = Response.stbeli
+          })
+          .catch((errot)=>{
+            return error.response.errors
+          })
+    },
 }
  
 };
